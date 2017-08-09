@@ -84,9 +84,9 @@ void MyVideoSurface::getlock(){
 }
 
 //不可兩個執行緒同時呼叫此函式，不然就算加了isGet也會不穩
-QImage MyVideoSurface::getCurrentImage(){
-    QImage currentImage = _image.convertToFormat(QImage::Format_Grayscale8); //要處理的圖灰階化
+QImage *MyVideoSurface::getCurrentImage(){
+    currentImage = _image.convertToFormat(QImage::Format_Grayscale8); //要處理的圖灰階化
     this->isGet = false;
 
-    return currentImage;
+    return &currentImage;
 }

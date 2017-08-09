@@ -22,6 +22,7 @@ SOURCES += main.cpp\
     scanthread.cpp \
     shared.cpp \
     selectform.cpp
+    #meanshift.cpp
 
 HEADERS  += mainwindow.h \
     myvideosurface.h \
@@ -30,6 +31,7 @@ HEADERS  += mainwindow.h \
     scanthread.h \
     shared.h \
     selectform.h
+    #meanshift.h
 
 FORMS    += mainwindow.ui \
     selectform.ui
@@ -38,6 +40,10 @@ macx{
     #libdmtx
     INCLUDEPATH += /usr/local/include
     LIBS += `pkg-config --libs libdmtx`
+
+    #OpenCV
+    #INCLUDEPATH += /usr/local/opt/opencv3/include
+    #LIBS += `pkg-config --libs opencv`
 }
 unix:!macx{
     #libdmtx

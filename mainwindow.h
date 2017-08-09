@@ -24,7 +24,6 @@ public:
     bool initialization();
     QImage *on_Capture();
     QImage currentImage;
-    QImage *currentImage_ptr;
     void start();
     void stop();
 
