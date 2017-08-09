@@ -10,7 +10,7 @@ QT       += multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = QCamera-Mode
+TARGET = MeanShift-Tracking
 TEMPLATE = app
 
 
@@ -20,16 +20,19 @@ SOURCES += main.cpp\
     videowidget.cpp \
     camera.cpp \
     scanthread.cpp \
-    shared.cpp
+    shared.cpp \
+    selectform.cpp
 
 HEADERS  += mainwindow.h \
     myvideosurface.h \
     videowidget.h \
     camera.h \
     scanthread.h \
-    shared.h
+    shared.h \
+    selectform.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    selectform.ui
 
 macx{
     #libdmtx

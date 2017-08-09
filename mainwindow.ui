@@ -29,10 +29,9 @@
     <property name="title">
      <string>Configure</string>
     </property>
-    <addaction name="actionSetting"/>
+    <addaction name="act_Target"/>
     <addaction name="separator"/>
-    <addaction name="actionInitialization"/>
-    <addaction name="actionClose"/>
+    <addaction name="act_Config"/>
    </widget>
    <addaction name="menuConfigure"/>
   </widget>
@@ -45,19 +44,17 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionSetting">
+  <action name="act_Target">
    <property name="text">
-    <string>Setting...</string>
+    <string>Target</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+S</string>
    </property>
   </action>
-  <action name="actionClose">
+  <action name="act_Config">
    <property name="text">
-    <string>Close</string>
-   </property>
-  </action>
-  <action name="actionInitialization">
-   <property name="text">
-    <string>initialization</string>
+    <string>Config</string>
    </property>
   </action>
  </widget>

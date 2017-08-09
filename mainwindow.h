@@ -5,11 +5,10 @@
 #include <QMainWindow>
 #include <QPlainTextEdit>
 #include <QImage>
-#include <QGraphicsView> //2
-#include <QGraphicsScene> //2
 
 #include "camera.h"
 #include "shared.h"
+#include "selectform.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,12 +28,10 @@ public:
     void start();
     void stop();
 
-//protected:
-    //virtual void keyPressEvent(QKeyEvent *event); //2
-
 private:
     Ui::MainWindow *ui;
     QPlainTextEdit *formText;
+    SelectForm *SF;
 
     //camera
     Camera *camera;
@@ -42,8 +39,7 @@ private:
 
 private slots:
     void displayCaptureError(int id,QCameraImageCapture::Error error,const QString &errorString);
-    //void on_imageCaptured(int id,const QImage &preview); //4
-    //void on_imageSaved(int id,const QString &fileName); //4
+    void trigerMenu(QAction *act);
 };
 
 #endif // MAINWINDOW_H

@@ -37,10 +37,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),ui(new Ui::MainWin
        一定要等 paint 值送到在繼續處理，不然跑幾小時就當了，因為這原因 debug 好久..*/
     connect(scanner,SIGNAL(throwInfo(INFO)),camera,SLOT(drawVideoWidget(INFO)),Qt::BlockingQueuedConnection);
 
+    //select tatget widget
+    SF = new SelectForm;
+
     //ui
     formText = new QPlainTextEdit(this);
     ui->gridLayout->addWidget(formText,1,0,1,3);
     ui->gridLayout->addWidget(camera->getVideoWidget(),0,1); //一定要在 initialization() 之後
+
+    //menu
+    connect(ui->menuBar,SIGNAL(triggered(QAction*)),this,SLOT(trigerMenu(QAction*)));
 }
 
 bool MainWindow::initialization(){
@@ -53,14 +59,19 @@ bool MainWindow::initialization(){
     camera->setCamera(cameras[0].deviceName().toLocal8Bit());
     camera->CameraStrat();
 
-    /* 4
-    connect(camera[i],SIGNAL(imageCaptured(int,QImage)),this,SLOT(on_imageCaptured(int,QImage)));
-    connect(camera[i],SIGNAL(imageSaved(int,QString)),this,SLOT(on_imageSaved(int,QString)));
-    */
-
     scanner->start();
 
     return true;
+}
+
+void MainWindow::trigerMenu(QAction *act){
+    if(act->text() == "Target"){
+        SF->setImage(on_Capture());
+        SF->show();
+        SF->raise();
+    }else if(act->text() == "Config"){
+        qDebug() << "C";
+    }
 }
 
 void MainWindow::start(){
@@ -87,31 +98,6 @@ void MainWindow::displayCaptureError(int id, QCameraImageCapture::Error error, c
     Q_UNUSED(error);
     QMessageBox::warning(this, tr("Image Capture Error"), errorString);
 }
-
-/*//2
-void MainWindow::keyPressEvent(QKeyEvent *event){
-    Q_UNUSED(event);
-    
-    //如果使用 QGraphicsVideoItem，若沒有在事件啟動 camera->start();，會沒有反應
-    camera->start();
-}
-*/
-
-/*//4
-void MainWindow::on_imageCaptured(int id, const QImage &preview){
-    qDebug() << "on_imageCaptured: " + QString::number(id);
-   la_captured[0]->setPixmap(QPixmap::fromImage(preview));
-   camera->CameraUnlock(); //捕捉後即可解鎖，因為已經進來了，所以不用等saved才解鎖
-}
-*/
-
-/*//4
-void MainWindow::on_imageSaved(int id, const QString &fileName){
-    qDebug() << "on_imageSaved: " + QString::number(id);
-    scene->clear();
-    scene->addPixmap(QPixmap(fileName)); //從檔案中call
-}
-*/
 
 MainWindow::~MainWindow()
 {
