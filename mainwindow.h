@@ -22,8 +22,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     bool initialization();
-    QImage *on_Capture();
-    QImage currentImage;
+    QImage &on_Capture();
     void start();
     void stop();
 

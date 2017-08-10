@@ -86,9 +86,8 @@ void MainWindow::stop(){
     qDebug() << "stop";
 }
 
-QImage* MainWindow::on_Capture(){
-    this->currentImage =  *camera->getCurrentImage(); //by MyVideoSurface 的 currentImage value
-    return &this->currentImage;
+QImage &MainWindow::on_Capture(){
+    return camera->getCurrentImage(); //by MyVideoSurface 的 currentImage reference
 }
 
 void MainWindow::displayCaptureError(int id, QCameraImageCapture::Error error, const QString &errorString){

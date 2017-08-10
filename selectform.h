@@ -25,7 +25,7 @@ class SelectForm : public QWidget
 public:
     explicit SelectForm(QWidget *parent = 0);
     ~SelectForm();
-    void setImage(QImage *image);
+    void setImage(QImage &image);
 
 protected:
     void paintEvent(QPaintEvent *event);

@@ -12,8 +12,8 @@ SelectForm::SelectForm(QWidget *parent) : QWidget(parent), ui(new Ui::SelectForm
     connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(complete()));
 }
 
-void SelectForm::setImage(QImage *image){
-    this->image = image->copy();
+void SelectForm::setImage(QImage &image){
+    this->image = image; //by MyVideoSurface 的 currentImage value(copy)
     repaint();
 }
 

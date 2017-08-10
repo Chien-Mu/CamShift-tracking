@@ -16,17 +16,17 @@ void scanthread::run(){
     QByteArray SN;
 
     while(!quit){
-        QImage *currentImage = ref->on_Capture();
+        QImage currentImage = ref->on_Capture(); //by MyVideoSurface 的 currentImage value(copy)
 
         //check
-        if(currentImage->isNull()){
+        if(currentImage.isNull()){
             msleep(200);
             continue;
         }
 
         //scanner
         if(!quit){
-            SN = scan(currentImage);
+            SN = scan(&currentImage);
             //qDebug() << "Decode: " << SN;
         }
         //msleep(200);
