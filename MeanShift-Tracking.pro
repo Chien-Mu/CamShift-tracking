@@ -19,37 +19,32 @@ SOURCES += main.cpp\
     myvideosurface.cpp \
     videowidget.cpp \
     camera.cpp \
-    scanthread.cpp \
     shared.cpp \
-    selectform.cpp
-    #meanshift.cpp
+    selectform.cpp \
+    myprocthread.cpp \
+    meanshift.cpp \
+    backimageviewer.cpp
 
 HEADERS  += mainwindow.h \
     myvideosurface.h \
     videowidget.h \
     camera.h \
-    scanthread.h \
     shared.h \
-    selectform.h
-    #meanshift.h
+    selectform.h \
+    myprocthread.h \
+    meanshift.h \
+    backimageviewer.h
 
 FORMS    += mainwindow.ui \
-    selectform.ui
+    selectform.ui \
+    backimageviewer.ui
 
 macx{
-    #libdmtx
-    INCLUDEPATH += /usr/local/include
-    LIBS += `pkg-config --libs libdmtx`
-
     #OpenCV
-    #INCLUDEPATH += /usr/local/opt/opencv3/include
-    #LIBS += `pkg-config --libs opencv`
+    INCLUDEPATH += /usr/local/opt/opencv3/include
+    LIBS += `pkg-config --libs opencv`
 }
 unix:!macx{
-    #libdmtx
-    INCLUDEPATH += /home/levy/raspi/sysroot/usr/include
-    LIBS += -L/home/levy/raspi/sysroot/usrlib -ldmtx
-
     #Cross Compile
     target.path = /home/pi/test5
     INSTALLS += target
@@ -57,8 +52,4 @@ unix:!macx{
 win32{
     #preprocessor definition
     DEFINES += WINDOWS
-
-    #libdmtx
-    INCLUDEPATH += C:\libdmtx-libdmtx\include
-    LIBS += C:\libdmtx-libdmtx\libdmtx.lib
 }

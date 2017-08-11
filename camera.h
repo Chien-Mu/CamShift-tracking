@@ -27,7 +27,7 @@ public:
     QImage &getCurrentImage(); //丟圖(不使用 標記 4 的情況，就是使用這函式取圖)
 
 public slots:
-    void drawVideoWidget(INFO info);
+    void drawVideoWidget(QRect rect);
 
 private:
     //camera and control

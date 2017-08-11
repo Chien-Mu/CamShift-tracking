@@ -15,13 +15,10 @@ VideoWidget::VideoWidget(QSize imageSize, QWidget *parent) : QWidget(parent)
     surface = new MyVideoSurface(this,widgetSize);
     this->setFixedSize(widgetSize); //如果沒設畫板大小，可能顯示會有問題。
     //-----------以上為不可變動區-------------
-
-    rect_null.setX(0);
-    rect_null.setY(0);
-    rect_null.setWidth(0);
-    rect_null.setHeight(0);
-    for(int i=0;i<SCANTOTAL;i++)
-        this->rects.push_back(rect_null);
+    this->rect.setX(0);
+    this->rect.setY(0);
+    this->rect.setWidth(0);
+    this->rect.setHeight(0);
 }
 
 VideoWidget::~VideoWidget(){
@@ -32,20 +29,11 @@ void VideoWidget::lock(){
     this->isPush = true;
 }
 
-void VideoWidget::draw(INFO info){
+void VideoWidget::draw(QRect &rect){
     while(isdraw)
         continue;
 
-    for(int i=0;i<SCANTOTAL && !isdraw;i++){ //for 裡面也要加 isdraw 判斷！
-        if(i<info.total || !info.SN[i].rect.isNull() || !info.SN[i].rect.isEmpty()){
-            this->rects[i] = QRect(info.SN[i].rect.x()*Wratio,
-                                   info.SN[i].rect.y()*Hratio,
-                                   info.SN[i].rect.width()*Wratio,
-                                   info.SN[i].rect.height()*Hratio);
-        }else{
-            this->rects[i] = rect_null;
-        }
-    }
+    this->rect = rect;
 
     isPush = false;
 }
@@ -61,14 +49,8 @@ void VideoWidget::paintEvent(QPaintEvent *event)
         surface->paintImage(&painter); //從記憶體取得圖
 
         //draw
-        pen.setBrush(Qt::black);
-        pen.setWidth(1);
-        painter.setPen(pen);
-        painter.drawLine(0,240,640,240);
-        painter.drawLine(320,0,320,480);
-
         pen.setBrush(Qt::red);
-        pen.setWidth(4);
+        pen.setWidth(2);
         painter.setPen(pen);
         if(!isPush){
         	/* 加 isdraw 的重要性超大
@@ -76,7 +58,7 @@ void VideoWidget::paintEvent(QPaintEvent *event)
         	   避免 draw() 改值
         	   當初因為這原因 搞了很久..*/
             isdraw = true;
-            painter.drawRects(rects); //在畫上矩形
+            painter.drawRect(rect); //在畫上矩形
             isdraw = false;
         }
 

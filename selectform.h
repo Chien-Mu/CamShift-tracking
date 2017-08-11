@@ -45,7 +45,7 @@ private slots:
     void complete();
 
 signals:
-    void throwTatget(QImage image);
+    void throwTatget(QImage image, QRect rect);
 };
 
 #endif // SELECTFORM_H

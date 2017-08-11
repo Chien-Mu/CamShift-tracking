@@ -65,12 +65,12 @@ QImage &Camera::getCurrentImage(){
     return videoWidget->refImageSurface()->getCurrentImage();
 }
 
-void Camera::drawVideoWidget(INFO info){
+void Camera::drawVideoWidget(QRect rect){
 	/* 這裡也一樣，在畫圖時，一定要加 lock，不然跑幾個小時就會當
 	   因為這邊的程序要改變座標變數時，paint 程序剛好使用此座標變數
 	   這時候就會照成 segmentation fault (因為這原因 debug 了 10天..)*/
     videoWidget->lock();
-    videoWidget->draw(info);
+    videoWidget->draw(rect);
 }
 
 void Camera::CameraStrat(){

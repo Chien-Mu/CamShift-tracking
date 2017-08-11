@@ -17,7 +17,7 @@ public:
     QAbstractVideoSurface *refVideoSurface() const { return surface; } //已 QAbstractVideoSurface 傳給外界(取景器)
     MyVideoSurface *refImageSurface() { return surface; } //已 MyVideoSurface 傳給外界(取圖用)
     void lock();
-    void draw(INFO info);
+    void draw(QRect &rect);
 
 protected:
     void paintEvent(QPaintEvent *event);
@@ -28,8 +28,7 @@ private:
     float Wratio;
     float Hratio;
     QPen pen;
-    QVector<QRect> rects;
-    QRect rect_null;
+    QRect rect;
     volatile bool isPush;
     volatile bool isdraw;
 };

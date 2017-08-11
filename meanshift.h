@@ -5,30 +5,22 @@
 #include <QImage>
 #include <QDebug>
 
-#include "mainwindow.h"
-
 using namespace cv;
 
-class MeanShift : public QThread
+class MeanShift
 {
-    Q_OBJECT
 public:
-    MeanShift(MainWindow *ref);
-    void setTarget(Mat target, int minSaturation);
-    int track(Mat &currentImage, Rect &currentRect, int minSaturation); //停止條件在此加入
-    Mat QImageToCvMat(const QImage &inImage, bool inCloneImageData = true);
-    void run();
-    void stop();
+    MeanShift();
+    void setTarget(Mat &target, int minSaturation);
+    int tracking(Mat &currentImage, Rect &currentRect, Mat &backImage, int minSaturation); //停止條件在此加入
+    void QImageToCvMat(const QImage &inImage, cv::Mat &dst);
 
 private:
-    MainWindow *ref;
     void getTask(Mat &src, Mat &hsv, Mat &hue, Mat &mask, int minSaturation);
     MatND getHueHist(Mat &hue, Mat &mask);
-    Mat target;
     MatND targetHist;
     float hue_range[2];
     const float* ranges;
-    bool quit;
 };
 
 #endif // MEANSHIFT_H

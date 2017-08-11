@@ -13,7 +13,10 @@ SelectForm::SelectForm(QWidget *parent) : QWidget(parent), ui(new Ui::SelectForm
 }
 
 void SelectForm::setImage(QImage &image){
-    this->image = image; //by MyVideoSurface 的 currentImage value(copy)
+    this->image = image.copy(); //by MyVideoSurface 的 currentImage value(copy)
+    /* 這裡正常來說 不用加 .copy()
+     * 但因為QImage的機制，兩者來自不同 thread，image = image 就會導致QImage 內部記憶體位置一樣
+     */
     repaint();
 }
 
@@ -59,7 +62,8 @@ void SelectForm::complete(){
     emit throwTatget(image.copy(proi.ROI.x() / Wratio,
                                 proi.ROI.y() / Hratio,
                                 proi.ROI.width() / Wratio,
-                                proi.ROI.height() / Hratio));
+                                proi.ROI.height() / Hratio),
+                     proi.ROI);
 
     this->close();
 }

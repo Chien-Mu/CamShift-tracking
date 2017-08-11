@@ -6,8 +6,8 @@
 #include <QCameraInfo>
 #include <QSpacerItem>
 
-#include "scanthread.h"
-scanthread *scanner;
+#include "myprocthread.h"
+MyProcThread *myProcThread;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),ui(new Ui::MainWindow)
 {
@@ -21,23 +21,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),ui(new Ui::MainWin
 
     //camera
     camera = new Camera;
-
-    //scanner
-    scanner = new scanthread(this);
     connect(camera,SIGNAL(Error(int,QCameraImageCapture::Error,QString)),
             this,SLOT(displayCaptureError(int,QCameraImageCapture::Error,QString)));
+
+    //My process thread
+    myProcThread = new MyProcThread(this);
 
     //initialization
     initialization();
 
     //draw(一定要在 initialization() 之後)
-    qRegisterMetaType<INFO>("INFO");
     /* 下面設定 BlockingQueuedConnection 是重點！ (他會 blocking emit 的地方，直到 slot 處理完)
        一定要等 paint 值送到在繼續處理，不然跑幾小時就當了，因為這原因 debug 好久..*/
-    connect(scanner,SIGNAL(throwInfo(INFO)),camera,SLOT(drawVideoWidget(INFO)),Qt::BlockingQueuedConnection);
+    connect(myProcThread,SIGNAL(trackResult(QRect)),camera,SLOT(drawVideoWidget(QRect)),Qt::BlockingQueuedConnection);
 
     //select tatget widget
     SF = new SelectForm;
+    connect(SF,SIGNAL(throwTatget(QImage,QRect)),myProcThread,SLOT(targetSlot(QImage,QRect)));
 
     //ui
     formText = new QPlainTextEdit(this);
@@ -58,7 +58,7 @@ bool MainWindow::initialization(){
     camera->setCamera(cameras[0].deviceName().toLocal8Bit());
     camera->CameraStrat();
 
-    scanner->start();
+    myProcThread->start();
 
     return true;
 }
@@ -74,7 +74,7 @@ void MainWindow::trigerMenu(QAction *act){
 }
 
 void MainWindow::start(){
-    if(scanner->isRunning())
+    if(myProcThread->isRunning())
         return;
 
     initialization();
@@ -82,7 +82,7 @@ void MainWindow::start(){
 
 void MainWindow::stop(){
     camera->CameraStop();
-    scanner->stop();
+    myProcThread->stop();
     qDebug() << "stop";
 }
 
