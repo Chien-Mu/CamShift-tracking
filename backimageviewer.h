@@ -14,7 +14,7 @@ class BackImageViewer : public QWidget
 public:
     explicit BackImageViewer(QWidget *parent = 0);
     ~BackImageViewer();
-    void setImage(QImage image);
+    void setImage(QImage &image);
 
 protected:
     void paintEvent(QPaintEvent *event);

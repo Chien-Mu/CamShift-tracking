@@ -33,7 +33,7 @@ int MeanShift::tracking(Mat &currentImage, Rect &currentRect, Mat &backImage, in
     //rectangle(backproj, currentRect, Scalar(255)); //draw (移動前)
 
     /// mean Shfit
-    TermCriteria criteria(TermCriteria::COUNT | TermCriteria::EPS, 10, 0.01); //停止條件
+    TermCriteria criteria(TermCriteria::MAX_ITER, 10, 0.01); //停止條件
     int shift = meanShift(backproj, currentRect, criteria);
 
     //rectangle(backproj, currentRect, Scalar(255)); //draw (移動後)

@@ -8,11 +8,11 @@ MyProcThread::MyProcThread(MainWindow *ref){
     this->Hratio = (float)PAINT_HEIGTH/(float)IMAGE_HEIGTH;
 
     BIV = new BackImageViewer;
-    //BIV->show();
+    BIV->show();
 
     MS = new MeanShift;
     this->targetMinSat = 160;
-    this->backprojMinSat = 50;
+    this->backprojMinSat = -1;
 }
 
 void MyProcThread::stop(){
@@ -59,12 +59,14 @@ void MyProcThread::run(){
         Mat cvBackImage;
         MS->tracking(cvCurrentImage, cvRect, cvBackImage, backprojMinSat);
 
-//        /// show back image
-//        QImage qback((uchar*)cvBackImage.data,
-//                     cvBackImage.cols,
-//                     cvBackImage.rows,
-//                     QImage::Format_Grayscale8);
-//        BIV->setImage(qback);
+        /// show back image
+        QImage qback((const uchar *)cvBackImage.data,
+                     cvBackImage.cols,
+                     cvBackImage.rows,
+                     cvBackImage.step,
+                     QImage::Format_Grayscale8);
+        qback = qback.scaled(PAINT_WIDTH,PAINT_HEIGTH);
+        BIV->setImage(qback);
 
         // sent rect
         emit trackResult(QRect(cvRect.x * Wratio,

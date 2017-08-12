@@ -6,9 +6,9 @@ BackImageViewer::BackImageViewer(QWidget *parent) : QWidget(parent), ui(new Ui::
     ui->setupUi(this);
 }
 
-void BackImageViewer::setImage(QImage image){
+void BackImageViewer::setImage(QImage &image){
     this->currentImage = image;
-    repaint();
+    this->update();  //repainter 是強制 repainter 會閃頻、當掉
 }
 
 void BackImageViewer::paintEvent(QPaintEvent *event){
@@ -17,7 +17,7 @@ void BackImageViewer::paintEvent(QPaintEvent *event){
         return;
 
     QPainter painter(this);
-    painter.drawImage(0,0,currentImage.scaled(this->size()));
+    painter.drawImage(0,0,currentImage);
 }
 
 BackImageViewer::~BackImageViewer()

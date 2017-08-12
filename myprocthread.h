@@ -3,6 +3,7 @@
 
 #include <QThread>
 
+#include "shared.h"
 #include "mainwindow.h"
 #include "meanshift.h"
 #include "backimageviewer.h"
