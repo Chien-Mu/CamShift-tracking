@@ -11,7 +11,7 @@ MyProcThread::MyProcThread(MainWindow *ref){
     BIV->show();
 
     MS = new MeanShift;
-    this->targetMinSat = 160;
+    this->targetMinSat = 50;
     this->backprojMinSat = -1;
 }
 
@@ -71,6 +71,7 @@ void MyProcThread::run(){
         // sent rect
         emit trackResult(QRect(cvRect.x * Wratio,
                                cvRect.y * Hratio,
-                               cvRect.width, cvRect.height));
+                               cvRect.width * Wratio,
+                               cvRect.height * Hratio ));
     }
 }

@@ -13,7 +13,7 @@ void MeanShift::setTarget(Mat &target, int minSaturation = -1){
     this->targetHist = getHueHist(hue,mask);
 }
 
-int MeanShift::tracking(Mat &currentImage, Rect &currentRect, Mat &backImage, int minSaturation = -1){
+void MeanShift::tracking(Mat &currentImage, Rect &currentRect, Mat &backImage, int minSaturation = -1){
     MatND _targetHist = this->targetHist; //避免 tracking 時外部更改 targetHist 導致衝突
 
     Mat hsv,hue,mask;
@@ -34,11 +34,10 @@ int MeanShift::tracking(Mat &currentImage, Rect &currentRect, Mat &backImage, in
 
     /// mean Shfit
     TermCriteria criteria(TermCriteria::MAX_ITER, 10, 0.01); //停止條件
-    int shift = meanShift(backproj, currentRect, criteria);
+    CamShift(backproj, currentRect, criteria);
 
     //rectangle(backproj, currentRect, Scalar(255)); //draw (移動後)
     //imshow( "BackProj", backproj );
-    return shift;
 }
 
 void MeanShift::getTask(Mat &src, Mat &hsv, Mat &hue, Mat &mask, int minSaturation){

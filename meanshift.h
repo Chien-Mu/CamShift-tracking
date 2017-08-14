@@ -12,7 +12,7 @@ class MeanShift
 public:
     MeanShift();
     void setTarget(Mat &target, int minSaturation);
-    int tracking(Mat &currentImage, Rect &currentRect, Mat &backImage, int minSaturation); //停止條件在此加入
+    void tracking(Mat &currentImage, Rect &currentRect, Mat &backImage, int minSaturation); //停止條件在此加入
     void QImageToCvMat(const QImage &inImage, cv::Mat &dst);
 
 private:
