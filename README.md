@@ -5,8 +5,12 @@
 * 先將影像轉換成 HSV 顏色域後，抽取 Hue channel 以及以 calcbackproject 方式算出機率圖後，
 利用 Camshift algorithm 追蹤機率最密集的區域，並回傳 Rectangle(追蹤位置)
 
+
+# Screenshots
+
 ![image](https://github.com/Chien-Mu/CamShift-tracking/blob/master/resource/1_1.gif)
 ![image](https://github.com/Chien-Mu/CamShift-tracking/blob/master/resource/3.png)
+
 
 # Usage
 
@@ -16,13 +20,13 @@
 
 ***
 
-## What is Camshift algorithm ?
+# What is Camshift algorithm ?
 
-![image](https://github.com/Chien-Mu/CamShift-tracking/blob/master/resource/Camshift%20algorithm.png)
 the face image region has it's color histogram extracted, and the updated position is obtained by identifying a region close to the previous frame that matches the same color histogram. 
+![image](https://github.com/Chien-Mu/CamShift-tracking/blob/master/resource/Camshift%20algorithm.png)
 
 
-## Camshift vs MeanShift
+### Camshift vs MeanShift
 
 * 與 Mean Shift 演算法差在 CAM Shift 是 Mean Shift 的改良版，可以自動變化 kernel(Rectangle) 的大小
 
