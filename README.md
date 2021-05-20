@@ -6,24 +6,26 @@
 利用 Camshift algorithm 追蹤機率最密集的區域，並回傳 Rectangle(追蹤位置)
 
 
-# Screenshots
-
-![image](https://github.com/Chien-Mu/CamShift-tracking/blob/master/resource/1_1.gif)
-![image](https://github.com/Chien-Mu/CamShift-tracking/blob/master/resource/3.png)
-
-
 # Usage
 
 先按 Ctrl + S 就會出現截除視窗，讓使用者以滑鼠左鍵垃取 ROI，選取追蹤物體
 
 
+# Screenshots
+
+<img src="https://github.com/Chien-Mu/CamShift-tracking/blob/master/resource/1_1.gif" width="50%" height="50%" />
+<img src="https://github.com/Chien-Mu/CamShift-tracking/blob/master/resource/3.png" width="60%" height="60%" />
+
+
 
 ***
 
+
 # What is Camshift algorithm ?
 
-the face image region has it's color histogram extracted, and the updated position is obtained by identifying a region close to the previous frame that matches the same color histogram. 
-![image](https://github.com/Chien-Mu/CamShift-tracking/blob/master/resource/Camshift%20algorithm.png)
+> the face image region has it's color histogram extracted, and the updated position is obtained by identifying a region close to the previous frame that matches the same color histogram. 
+
+<img src="https://github.com/Chien-Mu/CamShift-tracking/blob/master/resource/Camshift%20algorithm.png" width="50%" height="50%" />
 
 
 ### Camshift vs MeanShift
